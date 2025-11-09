@@ -133,3 +133,46 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.com/docs/reference/configuration)
 - [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+
+## Roadmap
+
+`pnpm-worspace.yaml`: defines how many repos we are having for this turborepo based  codebase
+
+`apps`: Inside apps folder, we have describe how many micro-apps we have, can treat as 2 different projects !!
+
+`turbo.json` understanding now:
+
+```json
+{
+  "$schema": "https://turborepo.com/schema.json", // Provides IntelliSense and validation for the config in editors (like VSCode).
+  "ui": "tui", // Enables Turborepo’s built-in Terminal UI (shows pretty task progress charts).
+  "tasks": { // This defines tasks that can run in your repo (like build, dev, lint, etc.) and how they cache or depend on each other.
+    "build": {
+      "dependsOn": ["^build"], // Means: Before building this package, run the build task in all ancestor dependencies of this package. (^ = run same task in dependencies).
+      "inputs": ["$TURBO_DEFAULT$", ".env*"], // Files that affect caching. If these change → task reruns.
+      "outputs": [".next/**", "!.next/cache/**"] // What build artifacts this task produces. Turborepo will cache these.
+    },
+    "lint": {
+      "dependsOn": ["^lint"] // When running lint for a package, run lint for any packages it depends on first.
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"] // Run type-checking in dependent packages first.
+    },
+    "dev": {
+      "cache": false, // Do not cache dev server tasks — they change constantly.
+      "persistent": true // Keep the task running (e.g., Next.js server, Vite dev server, watch mode).
+    }
+    // for build, lint, check-types, dev, we need to ensure we have those commands defined inside each project package.json file !!!!!
+  }
+  // the inputs / outputs are the related with the cache !!
+} // so far, in my understanding, the most important feature for turborepo is caching !! we only rebuild the changes, no changes, using cache !!!
+```
+
+`Another cool stuff`: Monorepo could share the type deifnitions, if backend side type changed, frontend will be able to capture the changes easily
+
+```js
+// NestJS Example
+// please check @repo/types as the complete example inside packages folder
+```
+
+`can do microservice app`: Using NestFactory, can also create standalone app + RESTful API
