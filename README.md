@@ -176,3 +176,32 @@ Learn more about the power of Turborepo:
 ```
 
 `can do microservice app`: Using NestFactory, can also create standalone app + RESTful API
+
+```bash
+# NestJS codebase
+# Please check apps/turborepo-nestjs codebase for details check
+# How to run
+cd apps/turborepo-nestjs
+pnpm run dev
+# Then using thunderclient or API client (eg: Postman) to create some products
+POST http://localhost:3030/products with body of 
+{
+  "id": "1",
+  "name": "product mock one",
+  "price": 123
+}
+# Then using get call to fetch all products
+GET http://localhost:3030/products
+```
+
+`enable remote cache`:
+```bash
+# setup turbo login first
+pnpm dlx turbo login
+# To connect to your Remote Cache, run the following in any turborepo:
+pnpm dlx turbo link
+# Then create the secrets from Github based on vercel and add into ci.yaml file
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+```
