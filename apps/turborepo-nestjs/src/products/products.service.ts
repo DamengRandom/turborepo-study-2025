@@ -7,8 +7,8 @@ export class ProductsService {
 
   createProduct(createProductRequest: CreateProductRequest) {
     const product: Product = {
-        ...createProductRequest,
-        id: (this.products.length + 1).toString(),
+      ...createProductRequest,
+      id: (this.products.length + 1).toString(),
     };
 
     this.products.push(product);

@@ -18,6 +18,8 @@ jobs:
         run: npm install -g pnpm
       - name: Install dependencies
         run: pnpm install
+      - name: Lint check
+        uses: pnpm run lint
       - name: Build projects
         run: pnpm run build
       - name: Run tests

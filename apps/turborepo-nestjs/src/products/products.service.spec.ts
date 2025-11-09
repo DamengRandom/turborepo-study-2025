@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
-import { CreateProductRequest, Product } from '@repo/types';
+import { CreateProductRequest } from '@repo/types';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -21,7 +21,7 @@ describe('ProductsService', () => {
     it('should create a product with an auto-generated id', () => {
       const createProductDto: CreateProductRequest = {
         name: 'Test Product',
-        price: 99.99
+        price: 99.99,
       };
 
       const product = service.createProduct(createProductDto);
@@ -34,7 +34,10 @@ describe('ProductsService', () => {
 
     it('should increment product id for each new product', () => {
       const firstProduct = service.createProduct({ name: 'First', price: 10 });
-      const secondProduct = service.createProduct({ name: 'Second', price: 20 });
+      const secondProduct = service.createProduct({
+        name: 'Second',
+        price: 20,
+      });
 
       expect(firstProduct.id).toBe('1');
       expect(secondProduct.id).toBe('2');

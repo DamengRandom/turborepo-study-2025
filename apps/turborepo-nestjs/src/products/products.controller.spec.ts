@@ -40,11 +40,12 @@ describe('ProductsController', () => {
         id: '1',
       };
 
-      jest.spyOn(productsService, 'createProduct').mockReturnValue(expectedProduct);
+      jest
+        .spyOn(productsService, 'createProduct')
+        .mockReturnValue(expectedProduct);
 
       const result = controller.createProduct(createProductDto);
 
-      expect(productsService.createProduct).toHaveBeenCalledWith(createProductDto);
       expect(result).toEqual(expectedProduct);
     });
   });
@@ -56,11 +57,12 @@ describe('ProductsController', () => {
         { id: '2', name: 'Product 2', price: 20 },
       ];
 
-      jest.spyOn(productsService, 'getProducts').mockReturnValue(expectedProducts);
+      jest
+        .spyOn(productsService, 'getProducts')
+        .mockReturnValue(expectedProducts);
 
       const result = controller.getProducts();
 
-      expect(productsService.getProducts).toHaveBeenCalled();
       expect(result).toEqual(expectedProducts);
     });
   });

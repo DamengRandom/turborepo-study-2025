@@ -4,15 +4,15 @@ import { CreateProductRequest } from '@repo/types';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
-    @Post()
-    createProduct(@Body() createProductRequest: CreateProductRequest) {
-        return this.productsService.createProduct(createProductRequest);
-    }
+  @Post()
+  createProduct(@Body() createProductRequest: CreateProductRequest) {
+    return this.productsService.createProduct(createProductRequest);
+  }
 
-    @Get()
-    getProducts() {
-        return this.productsService.getProducts();
-    }
+  @Get()
+  getProducts() {
+    return this.productsService.getProducts();
+  }
 }
