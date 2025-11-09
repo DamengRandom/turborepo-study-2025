@@ -206,3 +206,31 @@ env:
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 # Details can be found via this link: https://vercel.com/docs/monorepos/remote-caching
 ```
+
+`generate package in prune version`:
+
+```bash
+npm i -g turbo
+turbo prune turborepo-nestjs --docker
+```
+
+## How to run by docker for nestjs app?
+
+```bash
+# For Backend app
+# Build docker image locally
+docker build --build-arg NEXT_PUBLIC_API_URL=http://localhost:3030 -t turborepo-nestjs -f apps/turborepo-nestjs/Dockerfile .
+# How to run teh container docker run turborepo-nestjs
+docker run --rm -p 3030:3030 turborepo-nestjs
+# Fr Frontend app
+# Build docker image locally
+docker build -t web -f apps/web/Dockerfile .
+# How to run teh container docker run web
+docker run --rm -p 3000:3000 web
+# Check app itself
+docker run --rm -it --entrypoint sh turborepo-nestjs
+# OR
+docker run --rm -it --entrypoint sh web
+# pruned version of a Docker container === cleaned-up version of a Docker container
+# Eventually, we could run docker version of web app and nestjs api app together and using thuner client for testing
+```
